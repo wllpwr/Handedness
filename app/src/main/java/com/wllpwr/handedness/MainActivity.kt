@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 
 @Preview(showBackground = true)
@@ -37,3 +38,4 @@ fun DefaultPreview() {
         Text(text = "", textAlign = TextAlign.Center)
     }
 }
+
