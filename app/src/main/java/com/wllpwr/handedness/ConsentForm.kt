@@ -1,6 +1,7 @@
 package com.wllpwr.handedness
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
@@ -11,50 +12,78 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.TopAppBar
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple80
 
-class ConsentForm(navController: NavController) : ComponentActivity() {
+class ConsentForm() : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HandednessTheme {
-                // A surface container using the 'background' color from the theme
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    Row (
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        ConsentHeader(applicationContext)
-                    }
-                    Row (
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        ConsentInfoList(applicationContext)
+            val mContext = LocalContext.current
+            Scaffold(
+                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                content = {
+                    HandednessTheme {
+                        // A surface container using the 'background' color from the theme
+                        Column(
+                            horizontalAlignment = CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background)
+                                .verticalScroll(enabled = true, state = rememberScrollState())
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                ConsentHeader()
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                ConsentInfoList(applicationContext)
+                            }
+                            Button(
+                                onClick = {
+                                    mContext.startActivity(Intent(mContext, SurveyForm::class.java))
+                                },
+                                colors = ButtonDefaults.buttonColors(Color(0XFF0F9D58)),
+                                modifier = Modifier.padding(bottom = 20.dp)
+                            ) {
+                                Text(
+                                    text = "Continue",
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .padding(vertical = 10.dp)
+                                )
+                            }
+                        }
                     }
                 }
-            }
+            )
         }
     }
 }
 
 @Composable
-fun ConsentHeader(navController: NavController) {
+fun ConsentHeader() {
     HandednessTheme {
         Column {
             Text(

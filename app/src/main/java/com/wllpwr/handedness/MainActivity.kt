@@ -1,33 +1,36 @@
 package com.wllpwr.handedness
 
+import android.content.Intent
+import android.graphics.Color.parseColor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHost
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple40
+import com.wllpwr.handedness.ui.theme.Purple80
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HandednessTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    DefaultPreview()
-                }
-            }
+            Scaffold(
+                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                content = { DefaultPreview() }
+            )
         }
     }
 }
@@ -35,35 +38,60 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+    val mContext = LocalContext.current
+
     HandednessTheme {
-        Text(
-            text = "Hi! This is a handedness testing app that will determine your ability to navigate menus when using different hands. Let's get some info from you before we start.",
-            textAlign = TextAlign.Center
-        )
+        Column(
+            Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Hi! This is a handedness testing app that will determine your ability to navigate menus when using different hands. Let's get some info from you before we start.",
+                textAlign = TextAlign.Center
+            )
 
-        Text(text = "", textAlign = TextAlign.Center)
-    }
-}
-
-@Composable
-fun ScreenMain() {
-
-    val navController = rememberNavController()
-
-    NavHost(navController, "consentForm") {
-
-        // First route : Home
-        composable("consentForm") {
-
-            // Lay down the Home Composable
-            // and pass the navController
-            ConsentHeader(navController = navController)
-        }
-
-        // Another Route : Profile
-        composable("surveyForm") {
-            // Profile Screen
-            SurveyForm(navController = navController)
+            Button(
+                onClick = {
+                    mContext.startActivity(Intent(mContext, ConsentForm::class.java))
+                },
+                colors = ButtonDefaults.buttonColors(Color(0XFF0F9D58)),
+                modifier = Modifier.padding(top = 20.dp)
+            ) {
+                Text(
+                    text = "Proceed",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(vertical = 10.dp)
+                )
+            }
         }
     }
 }
+
+//    @Composable
+//    fun ScreenMain() {
+//        val allScreens = RallyScreen.values().toList()
+//        val navController = rememberNavController()
+//        val backstackEntry = navController.currentBackStackEntryAsState()
+//        val currentScreen = RallyScreen.fromRoute(backstackEntry.value?.destination?.route)
+//
+//        NavHost(navController, "consentForm") {
+//
+//            // First route : Home
+//            composable("consentForm") {
+//
+//                // Lay down the Home Composable
+//                // and pass the navController
+//                ConsentHeader(navController = navController)
+//            }
+//
+//            // Another Route : Profile
+//            composable("surveyForm") {
+//                // Profile Screen
+//                SurveyForm(navController = navController)
+//            }
+//        }
+//    }

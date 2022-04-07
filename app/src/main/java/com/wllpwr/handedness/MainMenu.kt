@@ -17,8 +17,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.wllpwr.handedness.ui.theme.Purple40
+import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
 import kotlinx.coroutines.launch
 
@@ -26,10 +28,15 @@ class MainMenu : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Surface(color = Color.White) {
-                // Scaffold we created
-                ScaffoldExample()
-            }
+            Scaffold(
+                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                content = {
+                    Surface(color = Color.White) {
+                        // Scaffold we created
+                        ScaffoldExample()
+                    }
+                }
+            )
         }
     }
 }

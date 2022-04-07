@@ -1,6 +1,7 @@
 package com.wllpwr.handedness
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -9,47 +10,61 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.RadioButton
 import androidx.compose.material.TextField
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple80
 
-class SurveyForm(navController: NavController) : ComponentActivity() {
+class SurveyForm() : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HandednessTheme {
-                // A surface container using the 'background' color from the theme
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    Row (
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        ConsentHeader(applicationContext)
-                    }
-                    Row (
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        ConsentInfoList(applicationContext)
+            Scaffold(
+                topBar = {
+                    TopAppBar(title = {
+                        Text(
+                            "Handedness Test",
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }, backgroundColor = Purple80)
+                },
+                content = {
+                    HandednessTheme {
+                        // A surface container using the 'background' color from the theme
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background)
+                                .verticalScroll(enabled = true, state = rememberScrollState())
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                QuestionnaireForm(applicationContext)
+                            }
+                        }
                     }
                 }
-            }
+            )
         }
     }
 }
@@ -62,6 +77,8 @@ fun QuestionnaireForm(context: Context) {
     var numHours by remember { mutableStateOf("") }
     var hoursHasError by remember { mutableStateOf(false) }
     var numHoursLabel by remember { mutableStateOf("Enter the number of hours") }
+
+    val mContext = LocalContext.current
 
     HandednessTheme {
         Column {
@@ -112,6 +129,7 @@ fun QuestionnaireForm(context: Context) {
                         "Form: input submitted!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    mContext.startActivity(Intent(mContext, MainMenu::class.java))
                 }) {
                 Text("Submit")
             }
