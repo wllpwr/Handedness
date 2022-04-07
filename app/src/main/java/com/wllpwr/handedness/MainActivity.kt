@@ -1,7 +1,6 @@
 package com.wllpwr.handedness
 
 import android.content.Intent
-import android.graphics.Color.parseColor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -55,12 +54,12 @@ fun DefaultPreview() {
                 onClick = {
                     mContext.startActivity(Intent(mContext, ConsentForm::class.java))
                 },
-                colors = ButtonDefaults.buttonColors(Color(0XFF0F9D58)),
+                colors = ButtonDefaults.buttonColors(Purple40),
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Text(
                     text = "Proceed",
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

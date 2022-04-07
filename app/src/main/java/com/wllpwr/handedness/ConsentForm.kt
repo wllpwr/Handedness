@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 
 class ConsentForm() : ComponentActivity() {
@@ -58,16 +59,21 @@ class ConsentForm() : ComponentActivity() {
                             ) {
                                 ConsentInfoList(applicationContext)
                             }
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                ConsentEndInfoAndSignature(applicationContext)
+                            }
                             Button(
                                 onClick = {
                                     mContext.startActivity(Intent(mContext, SurveyForm::class.java))
                                 },
-                                colors = ButtonDefaults.buttonColors(Color(0XFF0F9D58)),
+                                colors = ButtonDefaults.buttonColors(Purple40),
                                 modifier = Modifier.padding(bottom = 20.dp)
                             ) {
                                 Text(
                                     text = "Continue",
-                                    fontSize = 24.sp,
+                                    fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
                                     textAlign = TextAlign.Center,
                                     modifier = Modifier
@@ -137,6 +143,58 @@ fun ConsentInfoList(context: Context) {
     infoList.forEach { bulletPoint ->
         builder.append(
             bulletPoint + "\n\n",
+            BulletSpan(120),
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    HandednessTheme {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = builder.toString(),
+                fontSize = 24.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
+            )
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+@Composable
+fun ConsentEndInfoAndSignature(context: Context) {
+    val builder = SpannableStringBuilder()
+    val infoList = listOf(
+        "If you have questions about the study, contact:",
+        "Joshua Bogin",
+        "ITS, 194 Saint Paul Street",
+        "Champlain College, Burlington, VT 05401.",
+        "Telephone: (609) 410-1434",
+        "David Kopec",
+        "ITS, 317 Maple St",
+        "Champlain College, Burlington, VT 05401.",
+        "Telephone: (802) 651-5952",
+        "If you have questions about your rights in the study, contact:",
+        "Chair, Institutional Review Board for Champlain College",
+        "163 South Willard Street",
+        "Champlain College, P.O. Box 670",
+        "Burlington, VT 05402",
+        "Email: irb@champlain.edu",
+        "Website: http://www.champlain.edu/academic-affairs-provost/institutional-review-board.html",
+        "\n",
+        "I agree to participate in the research study described above.",
+        "\n",
+        "Signature: _______________",
+        "Date:  _____________",
+        "\n",
+        "You will receive a copy of this form for your records."
+    )
+    infoList.forEach { bulletPoint ->
+        builder.append(
+            bulletPoint + "\n",
             BulletSpan(120),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )

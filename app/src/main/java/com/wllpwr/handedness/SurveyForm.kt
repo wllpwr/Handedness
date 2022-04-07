@@ -28,7 +28,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 
 class SurveyForm() : ComponentActivity() {
@@ -83,14 +85,6 @@ fun QuestionnaireForm(context: Context) {
     HandednessTheme {
         Column {
             Text(
-                text = "Hi! This is a handedness testing app that will determine your ability to navigate menus when using different hands. Let's get some info from you before we start.",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(10.dp)
-            )
-
-            Box(Modifier.height(10.dp)) {}
-
-            Text(
                 text = "Are you 18 years or older?",
                 textAlign = TextAlign.Left,
                 modifier = Modifier.padding(10.dp)
@@ -123,6 +117,7 @@ fun QuestionnaireForm(context: Context) {
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(10.dp),
+                colors = ButtonDefaults.buttonColors(Purple40),
                 onClick = {
                     Toast.makeText(
                         context,
@@ -131,7 +126,13 @@ fun QuestionnaireForm(context: Context) {
                     ).show()
                     mContext.startActivity(Intent(mContext, MainMenu::class.java))
                 }) {
-                Text("Submit")
+                Text(
+                    text = "Submit",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                            .padding(vertical = 10.dp)
+                )
             }
         }
     }
