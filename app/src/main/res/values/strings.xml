@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Handedness</string>
     <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_basic_menu_nav">BasicMenuNav</string>
+    <string name="title_activity_burger_test">Burger Test</string>
+    <string name="title_activity_bottom_nav_test">BottomNavTest</string>
 </resources>
