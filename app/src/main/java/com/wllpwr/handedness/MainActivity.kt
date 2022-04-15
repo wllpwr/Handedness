@@ -27,7 +27,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
                 content = { DefaultPreview() }
             )
         }
@@ -46,8 +48,15 @@ fun DefaultPreview() {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Hi! This is a handedness testing app that will determine your ability to navigate menus when using different hands. Let's get some info from you before we start.",
-                textAlign = TextAlign.Center
+                text = "The Effects of Handedness in Mobile Devices",
+                fontSize = 32.sp,
+                lineHeight = 50.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
+                    .padding(bottom = 25.dp)
             )
 
             Button(
@@ -58,8 +67,8 @@ fun DefaultPreview() {
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Text(
-                    text = "Proceed",
-                    fontSize = 20.sp,
+                    text = "Begin!",
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

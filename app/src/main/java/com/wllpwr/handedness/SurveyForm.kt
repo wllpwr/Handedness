@@ -45,6 +45,7 @@ class SurveyForm() : ComponentActivity() {
                         Text(
                             "Handedness Test",
                             color = Color.Black,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }, backgroundColor = Purple80)

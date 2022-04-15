@@ -45,6 +45,7 @@ class ConsentForm() : ComponentActivity() {
                         Text(
                             "Handedness Test",
                             color = Color.Black,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }, backgroundColor = Purple80)
@@ -103,15 +104,6 @@ class ConsentForm() : ComponentActivity() {
 fun ConsentHeader() {
     HandednessTheme {
         Column {
-            Text(
-                text = "The Effects of Handedness in Mobile Devices:",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp)
-            )
             Text(
                 text = "Informed Consent Agreement",
                 fontSize = 27.sp,
@@ -210,10 +202,6 @@ fun ConsentEndInfoAndSignature(context: Context) {
         "Website: http://www.champlain.edu/academic-affairs-provost/institutional-review-board.html",
         "\r",
     )
-
-    var numHours by remember { mutableStateOf("") }
-    var hoursHasError by remember { mutableStateOf(false) }
-    var numHoursLabel by remember { mutableStateOf("Enter the number of hours") }
 
     infoList1.forEach { bulletPoint ->
         builder1.append(

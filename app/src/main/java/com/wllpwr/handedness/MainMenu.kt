@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
@@ -29,7 +30,7 @@ class MainMenu : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                //topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
