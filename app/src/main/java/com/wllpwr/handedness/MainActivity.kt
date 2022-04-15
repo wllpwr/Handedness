@@ -19,19 +19,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.gson.Gson
 import com.wllpwr.handedness.ui.theme.HandednessTheme
 import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
-import java.io.BufferedReader
-import java.io.DataOutputStream
-import java.io.InputStreamReader
-import java.net.URL
-
-
-data class Data(val consent: String){
-
-}
 
 
 
@@ -39,32 +29,11 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val dataObj = Data("True")
-        var gson = Gson()
-        val postData = gson.toJson(dataObj)
-
-        // posting data
-        val policy = ThreadPolicy.Builder().permitAll().build()
-
-        StrictMode.setThreadPolicy(policy)
-
-        val url = URL("http://141.126.225.241:4444/")
-
-        val conn = url.openConnection()
-        conn.doOutput = true
-        conn.setRequestProperty("Content-Type", "application/json")
-        conn.setRequestProperty("Content-Length", postData.length.toString())
-
-        DataOutputStream(conn.getOutputStream()).use { it.writeBytes(postData) }
-        BufferedReader(InputStreamReader(conn.getInputStream())).use { bf ->
-            var line: String?
-            while (bf.readLine().also { line = it } != null) {
-                println(line)
-            }
-        }
-        
-        // end posting data
+        DataObj.addData("TEST")
+        DataObj.addData("123")
+        DataObj.postData()
+        DataObj.printData()
+        DataObj.clear()
 
         setContent {
             Scaffold(
