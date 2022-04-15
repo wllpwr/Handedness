@@ -94,7 +94,7 @@ fun QuestionnaireForm(context: Context) {
                 modifier = Modifier.padding(12.5.dp)
                     .padding(top = 20.dp, bottom = 2.5.dp)
             )
-            CreateRadioAgeGroup(context, radioAgeOptions)
+            CreateRadioAgeGroup(context, radioAgeOptions)     // how get values?
 
             Text(
                 text = "Are you left-handed, right-handed or ambidextrous?",
@@ -104,7 +104,7 @@ fun QuestionnaireForm(context: Context) {
                 modifier = Modifier.padding(12.5.dp)
                     .padding(vertical = 10.dp)
             )
-            CreateRadioAgeGroup(context, radioHandOptions)
+            CreateRadioAgeGroup(context, radioHandOptions)     // how get values?
 
             Text(
                 text = "On average, how much time do you spend using a phone daily?",
