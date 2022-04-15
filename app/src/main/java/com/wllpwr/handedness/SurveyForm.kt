@@ -114,6 +114,7 @@ fun QuestionnaireForm(context: Context) {
                 modifier = Modifier.padding(12.5.dp)
                     .padding(vertical = 10.dp)
             )
+
             TextField(
                 value = numHours,
                 isError = hoursHasError,
@@ -134,6 +135,10 @@ fun QuestionnaireForm(context: Context) {
                         "Form: input submitted!",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    DataObj.addData(numHours)
+                    DataObj.addData("Submitted")
+                    DataObj.postData()
                     mContext.startActivity(Intent(mContext, MainMenu::class.java))
                 }) {
                 Text(

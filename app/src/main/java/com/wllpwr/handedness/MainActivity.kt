@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         DataObj.addData("TEST")
         DataObj.addData("123")
-        DataObj.postData() // note: if the server is down we fail to load app
+        // DataObj.postData() // note: if the server is down we fail to load app
         DataObj.printData()
         DataObj.clear()
 

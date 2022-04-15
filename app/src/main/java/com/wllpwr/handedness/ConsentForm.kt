@@ -78,6 +78,7 @@ class ConsentForm() : ComponentActivity() {
                             }
                             Button(
                                 onClick = {
+                                    DataObj.addData("Consented")
                                     mContext.startActivity(Intent(mContext, SurveyForm::class.java))
                                 },
                                 colors = ButtonDefaults.buttonColors(Purple40),
