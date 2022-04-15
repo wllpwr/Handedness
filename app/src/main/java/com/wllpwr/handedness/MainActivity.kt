@@ -86,18 +86,17 @@ fun DefaultPreview() {
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
                 text = "The Effects of Handedness in Mobile Devices",
                 fontSize = 32.sp,
-                lineHeight = 50.sp,
+                lineHeight = 45.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .padding(bottom = 25.dp)
             )
 
             Button(
