@@ -25,15 +25,15 @@ object DataObj{
 
 
     fun postData() {
-        var gson = GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create()
-
-        val postData = gson.toJson(DataObj)
-
-        // posting data
+        // allow networking on main thread
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-
         StrictMode.setThreadPolicy(policy)
 
+        // serialize object
+        var gson = GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create()
+        val postData = gson.toJson(DataObj)
+
+        // URL ~alexwaters.dev
         val url = URL("http://141.126.225.241:4444/")
 
         val conn = url.openConnection()

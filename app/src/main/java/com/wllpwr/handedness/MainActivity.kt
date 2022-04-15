@@ -2,8 +2,6 @@ package com.wllpwr.handedness
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -31,7 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         DataObj.addData("TEST")
         DataObj.addData("123")
-        DataObj.postData()
+        DataObj.postData() // note: if the server is down we fail to load app
         DataObj.printData()
         DataObj.clear()
 
