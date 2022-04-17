@@ -82,6 +82,7 @@ fun QuestionnaireForm(context: Context) {
     var hoursHasError by remember { mutableStateOf(false) }
     var numHoursLabel by remember { mutableStateOf("Enter the number of hours") }
 
+
     val mContext = LocalContext.current
 
     HandednessTheme {
@@ -175,7 +176,10 @@ fun CreateRadioAgeGroup(context: Context, radioOptions: List<String>) {
                         .height(height = 50.dp)
                         .selectable(
                             selected = (text == selectedOption),
-                            onClick = { onOptionSelected(text) }
+                            onClick = {
+                                onOptionSelected(text)
+                                DataObj.addData(text)
+                            }
                         )
                         .padding(horizontal = 10.dp)
                         .align(Alignment.CenterHorizontally)
@@ -189,6 +193,7 @@ fun CreateRadioAgeGroup(context: Context, radioOptions: List<String>) {
                         onClick = {
                             onOptionSelected(text)
                             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+                            DataObj.addData(text)
                         }
                     )
                     Text(
