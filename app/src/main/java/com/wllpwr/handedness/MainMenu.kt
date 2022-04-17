@@ -62,7 +62,7 @@ fun DefaultPreview2() {
             mContext.startActivity(Intent(mContext, BurgerTest::class.java))
         }) {
         androidx.compose.material3.Text(
-            text = "Test 1",
+            text = "Burger Menu Navigation",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             modifier = Modifier
@@ -77,7 +77,7 @@ fun DefaultPreview2() {
             mContext.startActivity(Intent(mContext, MenuNavTest::class.java))
         }) {
         androidx.compose.material3.Text(
-            text = "Test 2",
+            text = "Basic Menu Navigation",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             modifier = Modifier
@@ -92,7 +92,7 @@ fun DefaultPreview2() {
             mContext.startActivity(Intent(mContext, BottomNavTest::class.java))
         }) {
         androidx.compose.material3.Text(
-            text = "Test 3",
+            text = "Bottom Navigation Bar",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             modifier = Modifier
