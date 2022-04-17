@@ -21,13 +21,23 @@ import com.wllpwr.handedness.ui.theme.HandednessTheme
 import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 
+
+
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataObj.addData("TEST")
+        DataObj.addData("123")
+        // DataObj.postData() // note: if the server is down we fail to load app
+        DataObj.printData()
+        DataObj.clear()
+
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
                 content = { DefaultPreview() }
             )
         }
@@ -43,11 +53,17 @@ fun DefaultPreview() {
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = "Hi! This is a handedness testing app that will determine your ability to navigate menus when using different hands. Let's get some info from you before we start.",
-                textAlign = TextAlign.Center
+                text = "The Effects of Handedness in Mobile Devices",
+                fontSize = 32.sp,
+                lineHeight = 45.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
             )
 
             Button(
@@ -58,8 +74,8 @@ fun DefaultPreview() {
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Text(
-                    text = "Proceed",
-                    fontSize = 20.sp,
+                    text = "Begin!",
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

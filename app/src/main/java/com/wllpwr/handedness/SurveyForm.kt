@@ -20,6 +20,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -45,6 +46,7 @@ class SurveyForm() : ComponentActivity() {
                         Text(
                             "Handedness Test",
                             color = Color.Black,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }, backgroundColor = Purple80)
@@ -80,6 +82,7 @@ fun QuestionnaireForm(context: Context) {
     var hoursHasError by remember { mutableStateOf(false) }
     var numHoursLabel by remember { mutableStateOf("Enter the number of hours") }
 
+
     val mContext = LocalContext.current
 
     HandednessTheme {
@@ -87,36 +90,45 @@ fun QuestionnaireForm(context: Context) {
             Text(
                 text = "Are you 18 years or older?",
                 textAlign = TextAlign.Left,
-                modifier = Modifier.padding(10.dp)
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(12.5.dp)
+                    .padding(top = 20.dp, bottom = 2.5.dp)
             )
-            CreateRadioAgeGroup(context, radioAgeOptions)
+            CreateRadioAgeGroup(context, radioAgeOptions)     // how get values?
 
             Text(
                 text = "Are you left-handed, right-handed or ambidextrous?",
                 textAlign = TextAlign.Left,
-                modifier = Modifier.padding(10.dp)
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(12.5.dp)
+                    .padding(vertical = 10.dp)
             )
-            CreateRadioAgeGroup(context, radioHandOptions)
-
-            Box(Modifier.height(10.dp)) {}
+            CreateRadioAgeGroup(context, radioHandOptions)     // how get values?
 
             Text(
                 text = "On average, how much time do you spend using a phone daily?",
                 textAlign = TextAlign.Left,
-                modifier = Modifier.padding(10.dp)
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(12.5.dp)
+                    .padding(vertical = 10.dp)
             )
+
             TextField(
                 value = numHours,
                 isError = hoursHasError,
                 label = { Text(text = numHoursLabel) },
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier.padding(10.dp)
+                    .fillMaxWidth(),
                 onValueChange = { value -> numHours = value },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             )
             Button(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(10.dp),
+                    .padding(15.dp),
                 colors = ButtonDefaults.buttonColors(Purple40),
                 onClick = {
                     Toast.makeText(
@@ -124,6 +136,10 @@ fun QuestionnaireForm(context: Context) {
                         "Form: input submitted!",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    DataObj.addData(numHours)
+                    DataObj.addData("Submitted")
+                    DataObj.postData()
                     mContext.startActivity(Intent(mContext, MainMenu::class.java))
                 }) {
                 Text(
@@ -142,10 +158,13 @@ fun QuestionnaireForm(context: Context) {
 @Composable
 fun CreateRadioAgeGroup(context: Context, radioOptions: List<String>) {
     val (selectedOption, onOptionSelected) = remember { mutableStateOf("") }
+
+    val radioGroupHeight = radioOptions.count() * 50
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(height = 130.dp),
+            .height(height = radioGroupHeight.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -154,10 +173,13 @@ fun CreateRadioAgeGroup(context: Context, radioOptions: List<String>) {
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .height(height = 36.dp)
+                        .height(height = 50.dp)
                         .selectable(
                             selected = (text == selectedOption),
-                            onClick = { onOptionSelected(text) }
+                            onClick = {
+                                onOptionSelected(text)
+                                DataObj.addData(text)
+                            }
                         )
                         .padding(horizontal = 10.dp)
                         .align(Alignment.CenterHorizontally)
@@ -165,20 +187,22 @@ fun CreateRadioAgeGroup(context: Context, radioOptions: List<String>) {
                     RadioButton(
                         selected = (text == selectedOption),
                         modifier = Modifier
-                            .padding(all = Dp(value = 5F))
+                            .padding(all = 10.dp)
                             .fillMaxHeight()
-                            .align(Alignment.CenterVertically),
+                            .align(CenterVertically),
                         onClick = {
                             onOptionSelected(text)
                             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+                            DataObj.addData(text)
                         }
                     )
                     Text(
                         text = text,
+                        fontSize = 18.sp,
                         modifier = Modifier
-                            .padding(start = 5.dp)
+                            .padding(all = 10.dp)
                             .fillMaxHeight()
-                            .align(Alignment.CenterVertically)
+                            .align(CenterVertically)
                     )
                 }
             }
