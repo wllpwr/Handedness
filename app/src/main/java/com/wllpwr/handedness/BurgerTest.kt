@@ -99,7 +99,7 @@ fun TopBar(onMenuClicked: () -> Unit) {
     TopAppBar(
         // Provide Title
         title = {
-            Text(text = "Scaffold Test", color = Color.White)
+            Text(text = "Burger Test", color = Color.White)
         },
         // Provide the navigation Icon ( Icon on the left to toggle drawer)
         navigationIcon = {
@@ -166,9 +166,17 @@ fun Drawer() {
                                 .show()
                             Timer.endTimer()
                             DataObj.addData("TIME")
-                            DataObj.addData(Timer.getTime().toString())
+                            DataObj.addData(
+                                Timer
+                                    .getTime()
+                                    .toString()
+                            )
                             DataObj.addData("ERR")
-                            DataObj.addData(DataObj.getErrorCount().toString())
+                            DataObj.addData(
+                                DataObj
+                                    .getErrorCount()
+                                    .toString()
+                            )
                             DataObj.completeTest()
                         }
                         .background(color = Color.Red),
@@ -197,4 +205,4 @@ fun Drawer() {
             Divider(color = Color.Gray, thickness = 0.5.dp)
         }
     }
-    }
+}

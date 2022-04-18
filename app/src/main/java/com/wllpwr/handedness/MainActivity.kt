@@ -80,28 +80,3 @@ fun DefaultPreview() {
         }
     }
 }
-
-//    @Composable
-//    fun ScreenMain() {
-//        val allScreens = RallyScreen.values().toList()
-//        val navController = rememberNavController()
-//        val backstackEntry = navController.currentBackStackEntryAsState()
-//        val currentScreen = RallyScreen.fromRoute(backstackEntry.value?.destination?.route)
-//
-//        NavHost(navController, "consentForm") {
-//
-//            // First route : Home
-//            composable("consentForm") {
-//
-//                // Lay down the Home Composable
-//                // and pass the navController
-//                ConsentHeader(navController = navController)
-//            }
-//
-//            // Another Route : Profile
-//            composable("surveyForm") {
-//                // Profile Screen
-//                SurveyForm(navController = navController)
-//            }
-//        }
-//    }
