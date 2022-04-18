@@ -33,7 +33,6 @@ class BurgerTest : ComponentActivity() {
         Timer.startTimer()
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
