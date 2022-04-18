@@ -27,7 +27,7 @@ import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
 import kotlinx.coroutines.launch
 
-class BurgerTest : ComponentActivity() {
+class BurgerTest2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataObj.addData("BURGER TEST")
@@ -37,7 +37,7 @@ class BurgerTest : ComponentActivity() {
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
-                        ScaffoldExample()
+                        ScaffoldExample2()
                     }
                 }
             )
@@ -46,7 +46,7 @@ class BurgerTest : ComponentActivity() {
 }
 
 @Composable
-fun ScaffoldExample() {
+fun ScaffoldExample2() {
 
     // create a scaffold state, set it to close by default
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
@@ -65,7 +65,7 @@ fun ScaffoldExample() {
 
         // pass the topbar we created
         topBar = {
-            TopBar(
+            TopBar2(
                 // When menu is clicked open the
                 // drawer in coroutine scope
                 onMenuClicked = {
@@ -81,12 +81,12 @@ fun ScaffoldExample() {
         // Pass the body in
         // content parameter
         content = {
-            Body()
+            Body2()
         },
 
         // pass the drawer
         drawerContent = {
-            Drawer()
+            Drawer2()
         }
 
     )
@@ -95,7 +95,7 @@ fun ScaffoldExample() {
 // A function which will receive a
 // callback to trigger to opening the drawer
 @Composable
-fun TopBar(onMenuClicked: () -> Unit) {
+fun TopBar2(onMenuClicked: () -> Unit) {
     // TopAppBar Composable
     TopAppBar(
         // Provide Title
@@ -120,7 +120,7 @@ fun TopBar(onMenuClicked: () -> Unit) {
 }
 
 @Composable
-fun Body() {
+fun Body2() {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -134,12 +134,12 @@ fun Body() {
 
 
 @Composable
-fun Drawer() {
+fun Drawer2() {
     // Column Composable
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, BurgerTest2::class.java)
-
+    val intent = Intent(mContext, BurgerTest3::class.java)
+    
     Column(
         Modifier
             .background(Color.White)

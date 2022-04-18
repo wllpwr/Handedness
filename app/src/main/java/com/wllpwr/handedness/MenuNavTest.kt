@@ -89,7 +89,5 @@ fun ScrollableColumnDemo() {
             Divider(color = Color.Gray, thickness = 0.5.dp)
 
         }
-
-
     }
 }
