@@ -33,7 +33,15 @@ class BurgerTest : ComponentActivity() {
         Timer.startTimer()
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                topBar = {
+                    TopAppBar(title = {
+                        Text(
+                            "Handedness Test",
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }, backgroundColor = Purple80)
+                },
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
@@ -100,7 +108,7 @@ fun TopBar(onMenuClicked: () -> Unit) {
     TopAppBar(
         // Provide Title
         title = {
-            Text(text = "Scaffold Test", color = Color.White)
+            Text(text = "Burger Test", color = Color.White)
         },
         // Provide the navigation Icon ( Icon on the left to toggle drawer)
         navigationIcon = {
@@ -167,9 +175,17 @@ fun Drawer() {
                                 .show()
                             Timer.endTimer()
                             DataObj.addData("TIME")
-                            DataObj.addData(Timer.getTime().toString())
+                            DataObj.addData(
+                                Timer
+                                    .getTime()
+                                    .toString()
+                            )
                             DataObj.addData("ERR")
-                            DataObj.addData(DataObj.getErrorCount().toString())
+                            DataObj.addData(
+                                DataObj
+                                    .getErrorCount()
+                                    .toString()
+                            )
                             DataObj.completeTest()
                         }
                         .background(color = Color.Red),
@@ -198,4 +214,4 @@ fun Drawer() {
             Divider(color = Color.Gray, thickness = 0.5.dp)
         }
     }
-    }
+}
