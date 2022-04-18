@@ -114,7 +114,10 @@ fun ShowDirection(direction: String?) {
                     .padding(10.dp),
                 colors = ButtonDefaults.buttonColors(Purple40),
                 onClick = {
+                    DataObj.addData("hand")
+                    DataObj.addData(hand)
                     mContext.startActivity(chosenTest)
+
                 }) {
                 androidx.compose.material3.Text(
                     text = "Proceed",
