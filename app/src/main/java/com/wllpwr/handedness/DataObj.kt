@@ -10,6 +10,7 @@ import java.net.URL
 
 object DataObj{
     private val dataPoints: MutableList<String> = mutableListOf()
+    var completed = 0
 
     fun addData(Datapoint: String) {
         dataPoints.add(0,Datapoint)
@@ -47,6 +48,15 @@ object DataObj{
             while (bf.readLine().also { line = it } != null) {
                 println(line)
             }
+        }
+    }
+
+    fun completeTest() {
+        completed += 1
+        if (completed == 3)  {
+            postData()
+            completed = 0
+            clear()
         }
     }
 }

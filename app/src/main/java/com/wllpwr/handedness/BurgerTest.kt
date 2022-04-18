@@ -29,6 +29,8 @@ import kotlinx.coroutines.launch
 class BurgerTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataObj.addData("BURGER TEST")
+        Timer.startTimer()
         setContent {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black, fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
@@ -163,6 +165,10 @@ fun Drawer() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
+                            Timer.endTimer()
+                            DataObj.addData("TIME")
+                            DataObj.addData(Timer.getTime().toString())
+                            DataObj.completeTest()
                         }
                         .background(color = Color.Red),
                     textAlign = TextAlign.Left

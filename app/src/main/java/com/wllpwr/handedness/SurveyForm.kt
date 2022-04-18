@@ -139,7 +139,6 @@ fun QuestionnaireForm(context: Context) {
 
                     DataObj.addData(numHours)
                     DataObj.addData("Submitted")
-                    DataObj.postData()
                     mContext.startActivity(Intent(mContext, MainMenu::class.java))
                 }) {
                 Text(

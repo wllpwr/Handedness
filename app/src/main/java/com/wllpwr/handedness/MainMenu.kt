@@ -93,4 +93,4 @@ fun DefaultPreview2() {
                 .padding(vertical = 10.dp)
         )
     }
-    }
+}

@@ -27,11 +27,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataObj.addData("TEST")
-        DataObj.addData("123")
-        // DataObj.postData() // note: if the server is down we fail to load app
-        DataObj.printData()
-        DataObj.clear()
 
         setContent {
             Scaffold(

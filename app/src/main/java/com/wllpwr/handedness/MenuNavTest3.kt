@@ -29,6 +29,8 @@ import com.wllpwr.handedness.ui.theme.HandednessTheme
 class MenuNavTest3 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataObj.addData("MENU NAV TEST")
+        Timer.startTimer()
         setContent {
             HandednessTheme {
                 Surface(color = MaterialTheme.colors.background) {
@@ -69,6 +71,10 @@ fun ScrollableColumnDemo3() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
+                            Timer.endTimer()
+                            DataObj.addData("TIME")
+                            DataObj.addData(Timer.getTime().toString())
+                            DataObj.completeTest()
                         }
                         .background(color = Color.Red),
                     textAlign = TextAlign.Center,

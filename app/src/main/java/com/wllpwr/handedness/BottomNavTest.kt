@@ -29,6 +29,8 @@ import androidx.compose.material.Icon as Icon1
 class BottomNavTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataObj.addData("BOTTOM NAV TEST")
+        Timer.startTimer()
         setContent {
             HandednessTheme {
                 val navController = rememberNavController()
@@ -264,6 +266,10 @@ fun TopBarNav() {
                             "Test complete!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        Timer.endTimer()
+                        DataObj.addData("TIME")
+                        DataObj.addData(Timer.getTime().toString())
+                        DataObj.completeTest()
                     }),
                 tint = Color.White
             )
