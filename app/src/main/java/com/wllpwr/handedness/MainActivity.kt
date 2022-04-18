@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
-                content = { DefaultPreview() }
+                content = { IntroductoryPrompt() }
             )
         }
     }
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun IntroductoryPrompt() {
     val mContext = LocalContext.current
 
     HandednessTheme {

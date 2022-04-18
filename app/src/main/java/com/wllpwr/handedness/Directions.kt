@@ -67,10 +67,10 @@ fun ShowDirection(direction: String?) {
                 "test1" -> {
                     androidx.compose.material3.Text(
                         text = "In this test, you will open the hamburger menu, and tap the highlighted item.",
-                        fontSize = 18.sp,
+                        fontSize = 24.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .padding(10.dp)
+                            .padding(25.dp)
 
                     )
                     chosenTest = testActivityArray[0]
@@ -78,22 +78,20 @@ fun ShowDirection(direction: String?) {
                 "test2" -> {
                     androidx.compose.material3.Text(
                         text = "In this test, you will traverse through a series of pages, and tap the highlighted item.",
-                        fontSize = 18.sp,
+                        fontSize = 24.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-
-                            .padding(10.dp)
+                            .padding(25.dp)
                     )
                     chosenTest = testActivityArray[1]
                 }
                 "test3" -> {
                     androidx.compose.material3.Text(
                         text = "In this test, you will traverse the bottom navigation bar, and tap on the settings menu of the profile page.",
-                        fontSize = 18.sp,
+                        fontSize = 24.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-
-                            .padding(10.dp)
+                            .padding(25.dp)
 
                     )
                     chosenTest = testActivityArray[2]
@@ -105,11 +103,11 @@ fun ShowDirection(direction: String?) {
             }
             androidx.compose.material3.Text(
                 text = "Please ensure that you only use your $hand hand for this test.",
-                fontSize = 18.sp,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-
-                    .padding(10.dp)
+                    .padding(25.dp)
+                    .padding(bottom = 50.dp)
             )
             androidx.compose.material3.Button(
                 modifier = Modifier
