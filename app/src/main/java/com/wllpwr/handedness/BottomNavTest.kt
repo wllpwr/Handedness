@@ -1,20 +1,23 @@
 package com.wllpwr.handedness
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,7 +25,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wllpwr.handedness.ui.theme.HandednessTheme
 import androidx.compose.material.Icon as Icon1
-import androidx.compose.ui.graphics.vector.ImageVector
 
 class BottomNavTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +114,7 @@ fun ProfileScreen() {
         // Text to Display the current Screen
         Text(text = "Profile", color = Color.Black)
     }
+    TopBarNav()
 }
 
 
@@ -217,5 +220,53 @@ fun BottomNavigationBar(navController: NavHostController) {
             )
         }
     }
+
 }
 
+@Composable
+fun TopBarNav() {
+    val mContext = LocalContext.current
+    val intent = Intent(
+        mContext,
+        MainMenu::class.java
+    )
+    // TopAppBar Composable
+    TopAppBar(
+        // Provide Title
+        title = {
+            Text(text = "Profile", color = Color.White)
+        },
+        // Provide the navigation Icon ( Icon on the left to toggle drawer)
+        navigationIcon = {
+            androidx.compose.material.Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "Menu",
+
+                // When clicked trigger onClick
+                // Callback to trigger drawer open
+                modifier = Modifier
+                    .clickable(onClick = {}),
+                tint = Color.White
+            )
+        },
+        actions = {
+            androidx.compose.material.Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = "Settings",
+
+                // When clicked trigger onClick
+                // Callback to trigger drawer open
+                modifier = Modifier
+                    .clickable(onClick = {
+                        mContext.startActivity(intent)
+                        Toast.makeText(
+                            mContext,
+                            "Test complete!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }),
+                tint = Color.White
+            )
+        }
+    )
+}

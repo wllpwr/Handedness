@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
 
-class MenuNavTest : ComponentActivity() {
+class MenuNavTest2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             HandednessTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    ScrollableColumnDemo()
+                    ScrollableColumnDemo2()
                 }
             }
         }
@@ -41,11 +41,11 @@ class MenuNavTest : ComponentActivity() {
 
 @Composable
 @Preview
-fun ScrollableColumnDemo() {
+fun ScrollableColumnDemo2() {
 
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, MenuNavTest2::class.java)
+    val intent = Intent(mContext, MenuNavTest3::class.java)
 
     Column(
         modifier = Modifier.fillMaxSize(),

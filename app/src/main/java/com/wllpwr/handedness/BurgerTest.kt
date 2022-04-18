@@ -1,14 +1,13 @@
 package com.wllpwr.handedness
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -17,8 +16,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
@@ -132,15 +134,60 @@ fun Body() {
 @Composable
 fun Drawer() {
     // Column Composable
+    val mContext = LocalContext.current
     Column(
         Modifier
             .background(Color.White)
             .fillMaxSize()
     ) {
-        // Repeat is a loop which
-        // takes count as argument
-        repeat(5) { item ->
-            Text(text = "Item number $item", modifier = Modifier.padding(8.dp), color = Color.Black)
+        val random = (1..10).random()
+        for (i in 1..10) {
+
+            val intent = Intent(
+                mContext,
+                MainMenu::class.java
+            )
+            if (i == random) {
+                Text(
+                    text = "Item $i",
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .clickable {
+                            mContext.startActivity(intent)
+                            Toast
+                                .makeText(
+                                    mContext,
+                                    "Test complete!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        }
+                        .background(color = Color.Red),
+                    textAlign = TextAlign.Left
+                )
+            } else {
+                Text(
+                    text = "Item $i",
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .clickable {
+                            Toast
+                                .makeText(
+                                    mContext,
+                                    "Wrong item!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+
+                        },
+                    textAlign = TextAlign.Left
+                )
+            }
+            Divider(color = Color.Gray, thickness = 0.5.dp)
         }
     }
-}
+    }
