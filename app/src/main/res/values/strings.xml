@@ -5,4 +5,5 @@
     <string name="title_activity_burger_test">Burger Test</string>
     <string name="title_activity_bottom_nav_test">BottomNavTest</string>
     <string name="share" />
+    <string name="title_activity_directions">Directions</string>
 </resources>

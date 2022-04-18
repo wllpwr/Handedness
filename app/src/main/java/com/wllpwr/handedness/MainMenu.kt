@@ -44,6 +44,7 @@ class MainMenu : ComponentActivity() {
 @Composable
 fun DefaultPreview2() {
     val mContext = LocalContext.current
+    val intent = Intent(mContext, Directions::class.java)
     HandednessTheme {
 
     }
@@ -53,7 +54,8 @@ fun DefaultPreview2() {
             .padding(10.dp),
         colors = ButtonDefaults.buttonColors(Purple40),
         onClick = {
-            mContext.startActivity(Intent(mContext, BurgerTest::class.java))
+            intent.putExtra("direction", "test1")
+            mContext.startActivity(intent)
         }) {
         androidx.compose.material3.Text(
             text = "Burger Menu Navigation",
@@ -68,7 +70,8 @@ fun DefaultPreview2() {
             .padding(10.dp),
         colors = ButtonDefaults.buttonColors(Purple40),
         onClick = {
-            mContext.startActivity(Intent(mContext, MenuNavTest::class.java))
+            intent.putExtra("direction", "test2")
+            mContext.startActivity(intent)
         }) {
         androidx.compose.material3.Text(
             text = "Basic Menu Navigation",
@@ -83,7 +86,8 @@ fun DefaultPreview2() {
             .padding(10.dp),
         colors = ButtonDefaults.buttonColors(Purple40),
         onClick = {
-            mContext.startActivity(Intent(mContext, BottomNavTest::class.java))
+            intent.putExtra("direction", "test3")
+            mContext.startActivity(intent)
         }) {
         androidx.compose.material3.Text(
             text = "Bottom Navigation Bar",
