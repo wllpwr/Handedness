@@ -81,6 +81,7 @@ fun ScrollableColumnDemo() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
+                            // DataObj.errorHit()
                         },
                     textAlign = TextAlign.Center,
                 )

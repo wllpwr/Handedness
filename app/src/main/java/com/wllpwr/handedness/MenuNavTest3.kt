@@ -74,6 +74,8 @@ fun ScrollableColumnDemo3() {
                             Timer.endTimer()
                             DataObj.addData("TIME")
                             DataObj.addData(Timer.getTime().toString())
+                            DataObj.addData("ERR")
+                            DataObj.addData(DataObj.getErrorCount().toString())
                             DataObj.completeTest()
                         }
                         .background(color = Color.Red),
@@ -94,7 +96,7 @@ fun ScrollableColumnDemo3() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
-
+                            DataObj.errorHit()
                         },
                     textAlign = TextAlign.Center,
                 )

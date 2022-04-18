@@ -11,6 +11,7 @@ import java.net.URL
 object DataObj{
     private val dataPoints: MutableList<String> = mutableListOf()
     var completed = 0
+    var error = 0
 
     fun addData(Datapoint: String) {
         dataPoints.add(0,Datapoint)
@@ -51,7 +52,17 @@ object DataObj{
         }
     }
 
+    fun errorHit() {
+        error += 1
+    }
+
+    fun getErrorCount(): Int {
+        return error
+    }
+
     fun completeTest() {
+        addData("COMPLETED")
+        error = 0
         completed += 1
         if (completed == 3)  {
             postData()

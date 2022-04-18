@@ -168,6 +168,8 @@ fun Drawer() {
                             Timer.endTimer()
                             DataObj.addData("TIME")
                             DataObj.addData(Timer.getTime().toString())
+                            DataObj.addData("ERR")
+                            DataObj.addData(DataObj.getErrorCount().toString())
                             DataObj.completeTest()
                         }
                         .background(color = Color.Red),
@@ -188,7 +190,7 @@ fun Drawer() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
-
+                            DataObj.errorHit()
                         },
                     textAlign = TextAlign.Left
                 )
