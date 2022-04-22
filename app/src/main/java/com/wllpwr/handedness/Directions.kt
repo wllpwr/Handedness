@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -68,7 +69,7 @@ class Directions : ComponentActivity() {
 @Composable
 fun ShowDirection(direction: String?) {
     val mContext = LocalContext.current
-    val hand = arrayOf("Left", "Right").random()
+    val hand = arrayOf("LEFT", "RIGHT").random()
     val testActivityArray = arrayOf(
         Intent(mContext, BurgerTest::class.java),
         Intent(mContext, MenuNavTest::class.java),
@@ -124,9 +125,11 @@ fun ShowDirection(direction: String?) {
 
             }
             androidx.compose.material3.Text(
-                text = "Please ensure that you only use your $hand hand for this test.",
+                text = "*** $hand hand only for this test.",
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Italic,
                 modifier = Modifier
                     .padding(25.dp)
                     .padding(bottom = 50.dp)
