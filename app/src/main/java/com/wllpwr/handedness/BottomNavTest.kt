@@ -30,6 +30,7 @@ class BottomNavTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataObj.addData("BOTTOM NAV TEST")
+        val iteration = intent.getIntExtra("iteration", 0)
         Timer.startTimer()
         setContent {
             HandednessTheme {
@@ -43,7 +44,11 @@ class BottomNavTest : ComponentActivity() {
                             BottomNavigationBar(navController = navController)
                         }, content = { padding ->
                             // Navhost: where screens are placed
-                            NavHostContainer(navController = navController, padding = padding)
+                            NavHostContainer(
+                                navController = navController,
+                                padding = padding,
+                                iteration
+                            )
                         }
                     )
                 }
@@ -51,6 +56,7 @@ class BottomNavTest : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun HomeScreen() {
 
@@ -97,7 +103,7 @@ fun SearchScreen() {
 }
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(iteration: Int) {
     // Column Composable,
     Column(
         modifier = Modifier
@@ -116,15 +122,16 @@ fun ProfileScreen() {
         // Text to Display the current Screen
         Text(text = "Profile", color = Color.Black)
     }
-    TopBarNav()
+    TopBarNav(iteration)
 }
 
 
 data class BottomNavItem(
     val label: String,
     val icon: ImageVector,
-    val route:String,
+    val route: String,
 )
+
 object Constants {
     val BottomNavItems = listOf(
         BottomNavItem(
@@ -144,10 +151,12 @@ object Constants {
         )
     )
 }
+
 @Composable
 fun NavHostContainer(
     navController: NavHostController,
-    padding: PaddingValues
+    padding: PaddingValues,
+    iteration: Int,
 ) {
 
     NavHost(
@@ -173,10 +182,10 @@ fun NavHostContainer(
 
             // route : profile
             composable("profile") {
-                ProfileScreen()
+                ProfileScreen(iteration)
             }
         })
-    
+
 
 }
 
@@ -186,7 +195,8 @@ fun BottomNavigationBar(navController: NavHostController) {
     BottomNavigation(
 
         // set background color
-        backgroundColor = Color(255, 255, 255)) {
+        backgroundColor = Color(255, 255, 255)
+    ) {
 
         // observe the backstack
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -226,12 +236,13 @@ fun BottomNavigationBar(navController: NavHostController) {
 }
 
 @Composable
-fun TopBarNav() {
+fun TopBarNav(iteration: Int) {
     val mContext = LocalContext.current
     val intent = Intent(
         mContext,
         BottomNavTest::class.java
     )
+    var itCount = iteration
     // TopAppBar Composable
     TopAppBar(
         // Provide Title
@@ -260,17 +271,33 @@ fun TopBarNav() {
                 // Callback to trigger drawer open
                 modifier = Modifier
                     .clickable(onClick = {
-                        mContext.startActivity(intent)
-                        Toast.makeText(
-                            mContext,
-                            "Test complete!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Timer.endTimer()
-                        DataObj.addData("TIME")
-                        DataObj.addData(Timer.getTime().toString())
-                        DataObj.completeTest()
-                    }),
+                        if (itCount != 2) {
+                            itCount++
+                            intent.putExtra("iteration", itCount)
+
+                            Toast.makeText(
+                                mContext,
+                                "Test complete!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Timer.endTimer()
+                            DataObj.addData("TIME")
+                            DataObj.addData(Timer.getTime().toString())
+                            DataObj.completeTest()
+                            mContext.startActivity(intent)
+                        } else {
+                            mContext.startActivity(Intent(mContext, MainMenu::class.java))
+                            Toast
+                                .makeText(
+                                    mContext,
+                                    "Test fully completed!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        }
+
+                    }
+                    ),
                 tint = Color.White
             )
         }

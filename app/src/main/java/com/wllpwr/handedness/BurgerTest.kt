@@ -29,13 +29,14 @@ class BurgerTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataObj.addData("BURGER TEST")
+        val iteration = intent.getIntExtra("iteration", 0)
         Timer.startTimer()
         setContent {
             Scaffold(
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
-                        ScaffoldExample()
+                        ScaffoldExample(iteration)
                     }
                 }
             )
@@ -44,7 +45,7 @@ class BurgerTest : ComponentActivity() {
 }
 
 @Composable
-fun ScaffoldExample() {
+fun ScaffoldExample(iteration: Int) {
 
     // create a scaffold state, set it to close by default
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
@@ -84,7 +85,7 @@ fun ScaffoldExample() {
 
         // pass the drawer
         drawerContent = {
-            Drawer()
+            Drawer(iteration)
         }
 
     )
@@ -132,12 +133,12 @@ fun Body() {
 
 
 @Composable
-fun Drawer() {
+fun Drawer(iteration: Int) {
     // Column Composable
     val mContext = LocalContext.current
     rememberScrollState()
     val intent = Intent(mContext, BurgerTest::class.java)
-
+    var itCount = iteration
     Column(
         Modifier
             .background(Color.White)
@@ -146,39 +147,53 @@ fun Drawer() {
         val random = (1..10).random()
         for (i in 1..10) {
             if (i == random) {
-                Text(
-                    text = "Item $i",
-                    fontSize = 15.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-                        .clickable {
-                            mContext.startActivity(intent)
-                            Toast
-                                .makeText(
-                                    mContext,
-                                    "Test complete!",
-                                    Toast.LENGTH_SHORT
+                if (itCount != 3) {
+                    Text(
+                        text = "Item $i",
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                            .clickable {
+                                itCount++
+                                intent.putExtra("iteration", itCount)
+
+                                Toast
+                                    .makeText(
+                                        mContext,
+                                        "Test complete!",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+                                Timer.endTimer()
+                                DataObj.addData("TIME")
+                                DataObj.addData(
+                                    Timer
+                                        .getTime()
+                                        .toString()
                                 )
-                                .show()
-                            Timer.endTimer()
-                            DataObj.addData("TIME")
-                            DataObj.addData(
-                                Timer
-                                    .getTime()
-                                    .toString()
-                            )
-                            DataObj.addData("ERR")
-                            DataObj.addData(
-                                DataObj
-                                    .getErrorCount()
-                                    .toString()
-                            )
-                            DataObj.completeTest()
-                        }
-                        .background(color = Color.Red),
-                    textAlign = TextAlign.Left
-                )
+                                DataObj.addData("ERR")
+                                DataObj.addData(
+                                    DataObj
+                                        .getErrorCount()
+                                        .toString()
+                                )
+                                DataObj.completeTest()
+                                mContext.startActivity(intent)
+                            }
+                            .background(color = Color.Red),
+                        textAlign = TextAlign.Left
+                    )
+                } else {
+                    mContext.startActivity(Intent(mContext, MainMenu::class.java))
+                    Toast
+                        .makeText(
+                            mContext,
+                            "Test fully completed!",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
+                }
             } else {
                 Text(
                     text = "Item $i",
