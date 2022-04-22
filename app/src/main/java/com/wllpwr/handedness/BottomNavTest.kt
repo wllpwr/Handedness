@@ -278,7 +278,7 @@ fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
                 // Callback to trigger drawer open
                 modifier = Modifier
                     .clickable(onClick = {
-                        if (itCount != 2) {
+                        if (itCount != 4) {
                             itCount++
                             nextIteration.putExtra("iteration", itCount)
                             nextIteration.putExtra("hand", hand)
@@ -310,7 +310,7 @@ fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
                                     )
                                     .show()
 
-                                nextPage = Intent(mContext, MainMenu::class.java)
+                                nextPage = Intent(mContext, EndScreen::class.java)
                                 mContext.startActivity(nextPage)
                             }
                         }

@@ -1,4 +1,4 @@
-package com.wllpwr.handedness.ui.theme
+package com.wllpwr.handedness
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wllpwr.handedness.MainActivity
+import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple40
+import com.wllpwr.handedness.ui.theme.Purple80
 
 class EndScreen : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -26,15 +28,20 @@ class EndScreen : ComponentActivity() {
 
         setContent {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("Handedness Test", color = Color.Black,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold) }, backgroundColor = Purple80) },
+                topBar = {
+                    TopAppBar(title = {
+                        Text(
+                            "Handedness Test", color = Color.Black,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }, backgroundColor = Purple80)
+                },
                 content = { GoodbyePrompt() }
             )
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
@@ -49,10 +56,10 @@ fun GoodbyePrompt() {
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = "You Have completed the test! Please let the one of the Host know. " +
-                        "You may now put the phone down and walk away",
-                fontSize = 32.sp,
-                lineHeight = 45.sp,
+                text = "You Have completed the test! Please let the one of the Hosts know. " +
+                        "You may now put the phone down and exit the testing room.",
+                fontSize = 30.sp,
+                lineHeight = 42.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -68,7 +75,7 @@ fun GoodbyePrompt() {
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Text(
-                    text = "Begin!",
+                    text = "Restart!",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,

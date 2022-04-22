@@ -150,7 +150,7 @@ fun Drawer(iteration: Int, hand: String?, isFirstTest: Boolean) {
         val random = (1..10).random()
         for (i in 1..10) {
             if (i == random) {
-                if (itCount != 3) {
+                if (itCount != 5) {
                     Text(
                         text = "Item $i",
                         fontSize = 15.sp,
