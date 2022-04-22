@@ -84,10 +84,10 @@ fun ShowSwapDirection(direction: String?, hand: String?) {
                 .verticalScroll(enabled = true, state = rememberScrollState())
         ) {
             print(hand)
-            val swapHand = if (hand == "Left")
-                "Right"
+            val swapHand = if (hand == "LEFT")
+                "RIGHT"
             else
-                "Left"
+                "LEFT"
 
             Text(
                 text = "Great! Now swap to your $swapHand hand.",
