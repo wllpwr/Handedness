@@ -37,16 +37,6 @@
             android:label="@string/title_activity_basic_menu_nav"
             android:theme="@style/Theme.Handedness" />
         <activity
-            android:name=".MenuNavTest2"
-            android:exported="false"
-            android:label="@string/title_activity_basic_menu_nav"
-            android:theme="@style/Theme.Handedness" />
-        <activity
-            android:name=".MenuNavTest3"
-            android:exported="false"
-            android:label="@string/title_activity_basic_menu_nav"
-            android:theme="@style/Theme.Handedness" />
-        <activity
             android:name=".BurgerTest"
             android:exported="false"
             android:label="@string/title_activity_burger_test"

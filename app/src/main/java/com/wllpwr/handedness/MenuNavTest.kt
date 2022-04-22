@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
@@ -29,10 +28,13 @@ import com.wllpwr.handedness.ui.theme.HandednessTheme
 class MenuNavTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataObj.addData("MENU NAV TEST")
+        val iteration = intent.getIntExtra("iteration", 0)
+        Timer.startTimer()
         setContent {
             HandednessTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    ScrollableColumnDemo()
+                    ScrollableColumnDemo(iteration)
                 }
             }
         }
@@ -40,13 +42,12 @@ class MenuNavTest : ComponentActivity() {
 }
 
 @Composable
-@Preview
-fun ScrollableColumnDemo() {
+fun ScrollableColumnDemo(iteration: Int) {
 
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, MenuNavTest2::class.java)
-
+    val intent = Intent(mContext, MenuNavTest::class.java)
+    var itCount = iteration
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -54,18 +55,53 @@ fun ScrollableColumnDemo() {
         val random = (1..10).random()
         for (i in 1..10) {
             if (random == i) {
-                Text(
-                    text = "Item $i",
-                    fontSize = 16.sp,
+                if (itCount != 9) {
+                    Text(
+                        text = "Item $i",
+                        fontSize = 16.sp,
 
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            mContext.startActivity(intent)
-                        }
-                        .background(color = Color.Red),
-                    textAlign = TextAlign.Center,
-                )
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                itCount++
+                                intent.putExtra("iteration", itCount)
+
+                                Toast
+                                    .makeText(
+                                        mContext,
+                                        "Test $itCount",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+                                Timer.endTimer()
+                                DataObj.addData("TIME")
+                                DataObj.addData(
+                                    Timer
+                                        .getTime()
+                                        .toString()
+                                )
+                                DataObj.addData("ERR")
+                                DataObj.addData(
+                                    DataObj
+                                        .getErrorCount()
+                                        .toString()
+                                )
+                                DataObj.completeTest()
+                                mContext.startActivity(intent)
+                            }
+                            .background(color = Color.Red),
+                        textAlign = TextAlign.Center,
+                    )
+                } else {
+                    mContext.startActivity(Intent(mContext, MainMenu::class.java))
+                    Toast
+                        .makeText(
+                            mContext,
+                            "Test fully completed!",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
+                }
             } else {
                 Text(
                     text = "Item $i",
@@ -81,7 +117,7 @@ fun ScrollableColumnDemo() {
                                     Toast.LENGTH_SHORT
                                 )
                                 .show()
-                            // DataObj.errorHit()
+                            DataObj.errorHit()
                         },
                     textAlign = TextAlign.Center,
                 )
@@ -89,5 +125,7 @@ fun ScrollableColumnDemo() {
             Divider(color = Color.Gray, thickness = 0.5.dp)
 
         }
+
+
     }
 }

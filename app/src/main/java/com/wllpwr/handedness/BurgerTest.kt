@@ -18,12 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.Purple40
-import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
 import kotlinx.coroutines.launch
 
@@ -138,7 +136,7 @@ fun Drawer() {
     // Column Composable
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, BurgerTest2::class.java)
+    val intent = Intent(mContext, BurgerTest::class.java)
 
     Column(
         Modifier

@@ -230,7 +230,7 @@ fun TopBarNav() {
     val mContext = LocalContext.current
     val intent = Intent(
         mContext,
-        MainMenu::class.java
+        BottomNavTest::class.java
     )
     // TopAppBar Composable
     TopAppBar(
