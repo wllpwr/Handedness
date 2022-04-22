@@ -64,7 +64,7 @@ object DataObj{
         addData("COMPLETED")
         error = 0
         completed += 1
-        if (completed == 18)  {
+        if (completed == 38) {
             postData()
             completed = 0
             clear()
