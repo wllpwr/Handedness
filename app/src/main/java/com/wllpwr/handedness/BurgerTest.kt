@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wllpwr.handedness.ui.theme.Purple40
+import com.wllpwr.handedness.ui.theme.Purple80
 import com.wllpwr.handedness.ui.theme.PurpleGrey40
+import com.wllpwr.handedness.ui.theme.Red30
 import kotlinx.coroutines.launch
 
 class BurgerTest : ComponentActivity() {
@@ -102,7 +104,12 @@ fun TopBar(onMenuClicked: () -> Unit) {
     TopAppBar(
         // Provide Title
         title = {
-            Text(text = "Burger Test", color = Color.White)
+            androidx.compose.material3.Text(
+                "Burger Test",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
         },
         // Provide the navigation Icon ( Icon on the left to toggle drawer)
         navigationIcon = {
@@ -113,11 +120,11 @@ fun TopBar(onMenuClicked: () -> Unit) {
                 // When clicked trigger onClick
                 // Callback to trigger drawer open
                 modifier = Modifier.clickable(onClick = onMenuClicked),
-                tint = Color.White
+                tint = Color.Black
             )
         },
         // background color of topAppBar
-        backgroundColor = Purple40
+        backgroundColor = Purple80
     )
 }
 
@@ -186,7 +193,7 @@ fun Drawer(iteration: Int, hand: String?, isFirstTest: Boolean) {
                                 DataObj.completeTest()
                                 mContext.startActivity(nextIteration)
                             }
-                            .background(color = Color.Red),
+                            .background(color = Red30),
                         textAlign = TextAlign.Left
                     )
                 } else {

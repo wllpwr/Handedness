@@ -77,7 +77,7 @@ fun DefaultPreview2() {
             intent.putExtra("direction", "test1")
             mContext.startActivity(intent)
         }) {
-        androidx.compose.material3.Text(
+        Text(
             text = "Burger Menu Navigation",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
@@ -93,7 +93,7 @@ fun DefaultPreview2() {
             intent.putExtra("direction", "test2")
             mContext.startActivity(intent)
         }) {
-        androidx.compose.material3.Text(
+        Text(
             text = "Basic Menu Navigation",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
@@ -109,7 +109,7 @@ fun DefaultPreview2() {
             intent.putExtra("direction", "test3")
             mContext.startActivity(intent)
         }) {
-        androidx.compose.material3.Text(
+        Text(
             text = "Bottom Navigation Bar",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,

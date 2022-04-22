@@ -56,7 +56,7 @@ fun GoodbyePrompt() {
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = "You Have completed the test! Please let the one of the Hosts know. " +
+                text = "You've completed the test! Please let the one of the hosts know. " +
                         "You may now put the phone down and exit the testing room.",
                 fontSize = 30.sp,
                 lineHeight = 42.sp,
@@ -75,7 +75,7 @@ fun GoodbyePrompt() {
                 modifier = Modifier.padding(top = 20.dp)
             ) {
                 Text(
-                    text = "Restart!",
+                    text = "Restart",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,

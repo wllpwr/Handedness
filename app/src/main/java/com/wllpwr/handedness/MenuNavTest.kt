@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Red30
 
 class MenuNavTest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +96,7 @@ fun ScrollableColumnDemo(iteration: Int, hand: String?, isFirstTest: Boolean) {
                                 DataObj.completeTest()
                                 mContext.startActivity(nextIteration)
                             }
-                            .background(color = Color.Red),
+                            .background(color = Red30),
                         textAlign = TextAlign.Center,
                     )
                 } else {

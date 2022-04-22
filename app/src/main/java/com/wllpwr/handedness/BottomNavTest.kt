@@ -18,12 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wllpwr.handedness.ui.theme.HandednessTheme
+import com.wllpwr.handedness.ui.theme.Purple80
 import androidx.compose.material.Icon as Icon1
 
 class BottomNavTest : ComponentActivity() {
@@ -78,7 +81,7 @@ fun HomeScreen() {
         Icon1(
             imageVector = Icons.Default.Home,
             contentDescription = "home",
-            tint = Color(0xFF0F9D58)
+            tint = Color.Black
         )
         // Text to Display the current Screen
         Text(text = "Home", color = Color.Black)
@@ -100,7 +103,7 @@ fun SearchScreen() {
         Icon1(
             imageVector = Icons.Default.Search,
             contentDescription = "search",
-            tint = Color(0xFF0F9D58)
+            tint = Color.Black
         )
         // Text to Display the current Screen
         Text(text = "Search", color = Color.Black)
@@ -122,7 +125,7 @@ fun ProfileScreen(iteration: Int, hand: String?, isFirstTest: Boolean) {
         Icon1(
             imageVector = Icons.Default.Person,
             contentDescription = "Profile",
-            tint = Color(0xFF0F9D58)
+            tint = Color.Black
         )
         // Text to Display the current Screen
         Text(text = "Profile", color = Color.Black)
@@ -254,7 +257,12 @@ fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
     TopAppBar(
         // Provide Title
         title = {
-            Text(text = "Profile", color = Color.White)
+            androidx.compose.material3.Text(
+                "Profile",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
         },
         // Provide the navigation Icon ( Icon on the left to toggle drawer)
         navigationIcon = {
@@ -266,9 +274,9 @@ fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
                 // Callback to trigger drawer open
                 modifier = Modifier
                     .clickable(onClick = {}),
-                tint = Color.White
+                tint = Color.Black
             )
-        },
+        }, backgroundColor = Purple80,
         actions = {
             androidx.compose.material.Icon(
                 imageVector = Icons.Default.Settings,
@@ -317,7 +325,7 @@ fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
 
                     }
                     ),
-                tint = Color.White
+                tint = Color.Black
             )
         }
     )
