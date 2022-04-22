@@ -14,10 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,11 +28,13 @@ import com.wllpwr.handedness.ui.theme.HandednessTheme
 import com.wllpwr.handedness.ui.theme.Purple40
 import com.wllpwr.handedness.ui.theme.Purple80
 
-class Directions : ComponentActivity() {
+class SwapDirections : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val direction = intent.getStringExtra("direction")
+        val direction = intent.getStringExtra("testNum")
+        val hand = intent.getStringExtra("hand")
+
         setContent {
             Scaffold(
                 topBar = {
@@ -56,7 +55,7 @@ class Directions : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            ShowDirection(direction)
+                            ShowSwapDirection(direction, hand)
                         }
                     }
                 }
@@ -66,15 +65,14 @@ class Directions : ComponentActivity() {
 }
 
 @Composable
-fun ShowDirection(direction: String?) {
+fun ShowSwapDirection(direction: String?, hand: String?) {
     val mContext = LocalContext.current
-    val hand = arrayOf("Left", "Right").random()
     val testActivityArray = arrayOf(
         Intent(mContext, BurgerTest::class.java),
         Intent(mContext, MenuNavTest::class.java),
         Intent(mContext, BottomNavTest::class.java)
     )
-    lateinit var chosenTest: Intent
+    lateinit var currentTest: Intent
     HandednessTheme {
         println(direction)
         Column(
@@ -85,65 +83,44 @@ fun ShowDirection(direction: String?) {
                 .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
                 .verticalScroll(enabled = true, state = rememberScrollState())
         ) {
-            when (direction) {
-                "test1" -> {
-                    androidx.compose.material3.Text(
-                        text = "In this test, you will open the hamburger menu, and tap the highlighted item.",
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .padding(25.dp)
+            print(hand)
+            val swapHand = if (hand == "Left")
+                "Right"
+            else
+                "Left"
 
-                    )
-                    chosenTest = testActivityArray[0]
-                }
-                "test2" -> {
-                    androidx.compose.material3.Text(
-                        text = "In this test, you will traverse through a series of pages, and tap the highlighted item.",
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .padding(25.dp)
-                    )
-                    chosenTest = testActivityArray[1]
-                }
-                "test3" -> {
-                    androidx.compose.material3.Text(
-                        text = "In this test, you will traverse the bottom navigation bar, and tap on the settings menu of the profile page.",
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .padding(25.dp)
-
-                    )
-                    chosenTest = testActivityArray[2]
-                }
-                else -> {
-                    println("ERROR: Incorrect Test")
-                }
-
-            }
-            androidx.compose.material3.Text(
-                text = "Please ensure that you only use your $hand hand for this test.",
+            Text(
+                text = "Great! Now swap to your $swapHand hand.",
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .padding(25.dp)
-                    .padding(bottom = 50.dp)
+
             )
-            androidx.compose.material3.Button(
+
+            when (direction) {
+                "test1" -> currentTest = testActivityArray[0]
+                "test2" -> currentTest = testActivityArray[1]
+                "test3" -> currentTest = testActivityArray[2]
+                else -> {
+                    println("ERROR: Incorrect Test")
+                }
+            }
+
+            Button(
                 modifier = Modifier
                     .padding(10.dp),
                 colors = ButtonDefaults.buttonColors(Purple40),
                 onClick = {
                     DataObj.addData("hand")
-                    DataObj.addData(hand)
-                    chosenTest.putExtra("hand", hand)
-                    chosenTest.putExtra("isFirstTest", true)
-                    mContext.startActivity(chosenTest)
+                    DataObj.addData(swapHand)
+
+                    currentTest.putExtra("hand", swapHand)
+                    currentTest.putExtra("isFirstTest", false)
+                    mContext.startActivity(currentTest)
 
                 }) {
-                androidx.compose.material3.Text(
+                Text(
                     text = "Proceed",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,

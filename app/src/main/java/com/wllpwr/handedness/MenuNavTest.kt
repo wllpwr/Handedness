@@ -30,11 +30,14 @@ class MenuNavTest : ComponentActivity() {
         super.onCreate(savedInstanceState)
         DataObj.addData("MENU NAV TEST")
         val iteration = intent.getIntExtra("iteration", 0)
+        val hand = intent.getStringExtra("hand")
+        val isFirstTest = intent.getBooleanExtra("isFirstTest", true)
         Timer.startTimer()
+
         setContent {
             HandednessTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    ScrollableColumnDemo(iteration)
+                    ScrollableColumnDemo(iteration, hand, isFirstTest)
                 }
             }
         }
@@ -42,11 +45,12 @@ class MenuNavTest : ComponentActivity() {
 }
 
 @Composable
-fun ScrollableColumnDemo(iteration: Int) {
+fun ScrollableColumnDemo(iteration: Int, hand: String?, isFirstTest: Boolean) {
 
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, MenuNavTest::class.java)
+    val nextIteration = Intent(mContext, MenuNavTest::class.java)
+    nextIteration.putExtra("hand", hand)
     var itCount = iteration
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -64,7 +68,9 @@ fun ScrollableColumnDemo(iteration: Int) {
                             .fillMaxWidth()
                             .clickable {
                                 itCount++
-                                intent.putExtra("iteration", itCount)
+                                nextIteration.putExtra("iteration", itCount)
+                                nextIteration.putExtra("hand", hand)
+                                nextIteration.putExtra("isFirstTest", isFirstTest)
 
                                 Toast
                                     .makeText(
@@ -87,20 +93,29 @@ fun ScrollableColumnDemo(iteration: Int) {
                                         .toString()
                                 )
                                 DataObj.completeTest()
-                                mContext.startActivity(intent)
+                                mContext.startActivity(nextIteration)
                             }
                             .background(color = Color.Red),
                         textAlign = TextAlign.Center,
                     )
                 } else {
-                    mContext.startActivity(Intent(mContext, MainMenu::class.java))
-                    Toast
-                        .makeText(
-                            mContext,
-                            "Test fully completed!",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    var nextPage = Intent(mContext, SwapDirections::class.java)
+                    if (isFirstTest) {
+                        nextPage.putExtra("hand", hand)
+                        nextPage.putExtra("testNum", "test2")
+                        mContext.startActivity(nextPage)
+                    } else {
+                        Toast
+                            .makeText(
+                                mContext,
+                                "Test fully completed!",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
+
+                        nextPage = Intent(mContext, MainMenu::class.java)
+                        mContext.startActivity(nextPage)
+                    }
                 }
             } else {
                 Text(

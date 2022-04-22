@@ -31,7 +31,10 @@ class BottomNavTest : ComponentActivity() {
         super.onCreate(savedInstanceState)
         DataObj.addData("BOTTOM NAV TEST")
         val iteration = intent.getIntExtra("iteration", 0)
+        val hand = intent.getStringExtra("hand")
+        val isFirstTest = intent.getBooleanExtra("isFirstTest", true)
         Timer.startTimer()
+
         setContent {
             HandednessTheme {
                 val navController = rememberNavController()
@@ -47,7 +50,9 @@ class BottomNavTest : ComponentActivity() {
                             NavHostContainer(
                                 navController = navController,
                                 padding = padding,
-                                iteration
+                                iteration,
+                                hand,
+                                isFirstTest
                             )
                         }
                     )
@@ -103,7 +108,7 @@ fun SearchScreen() {
 }
 
 @Composable
-fun ProfileScreen(iteration: Int) {
+fun ProfileScreen(iteration: Int, hand: String?, isFirstTest: Boolean) {
     // Column Composable,
     Column(
         modifier = Modifier
@@ -122,7 +127,7 @@ fun ProfileScreen(iteration: Int) {
         // Text to Display the current Screen
         Text(text = "Profile", color = Color.Black)
     }
-    TopBarNav(iteration)
+    TopBarNav(iteration, hand, isFirstTest)
 }
 
 
@@ -157,6 +162,8 @@ fun NavHostContainer(
     navController: NavHostController,
     padding: PaddingValues,
     iteration: Int,
+    hand: String?,
+    isFirstTest: Boolean
 ) {
 
     NavHost(
@@ -182,7 +189,7 @@ fun NavHostContainer(
 
             // route : profile
             composable("profile") {
-                ProfileScreen(iteration)
+                ProfileScreen(iteration, hand, isFirstTest)
             }
         })
 
@@ -236,9 +243,9 @@ fun BottomNavigationBar(navController: NavHostController) {
 }
 
 @Composable
-fun TopBarNav(iteration: Int) {
+fun TopBarNav(iteration: Int, hand: String?, isFirstTest: Boolean) {
     val mContext = LocalContext.current
-    val intent = Intent(
+    val nextIteration = Intent(
         mContext,
         BottomNavTest::class.java
     )
@@ -273,27 +280,39 @@ fun TopBarNav(iteration: Int) {
                     .clickable(onClick = {
                         if (itCount != 2) {
                             itCount++
-                            intent.putExtra("iteration", itCount)
+                            nextIteration.putExtra("iteration", itCount)
+                            nextIteration.putExtra("hand", hand)
+                            nextIteration.putExtra("isFirstTest", isFirstTest)
 
                             Toast.makeText(
                                 mContext,
                                 "Test complete!",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             Timer.endTimer()
                             DataObj.addData("TIME")
                             DataObj.addData(Timer.getTime().toString())
                             DataObj.completeTest()
-                            mContext.startActivity(intent)
+                            mContext.startActivity(nextIteration)
                         } else {
-                            mContext.startActivity(Intent(mContext, MainMenu::class.java))
-                            Toast
-                                .makeText(
-                                    mContext,
-                                    "Test fully completed!",
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
+                            var nextPage = Intent(mContext, SwapDirections::class.java)
+                            if (isFirstTest) {
+                                nextPage.putExtra("hand", hand)
+                                nextPage.putExtra("testNum", "test3")
+                                mContext.startActivity(nextPage)
+                            } else {
+                                Toast
+                                    .makeText(
+                                        mContext,
+                                        "Test fully completed!",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+
+                                nextPage = Intent(mContext, MainMenu::class.java)
+                                mContext.startActivity(nextPage)
+                            }
                         }
 
                     }

@@ -30,13 +30,16 @@ class BurgerTest : ComponentActivity() {
         super.onCreate(savedInstanceState)
         DataObj.addData("BURGER TEST")
         val iteration = intent.getIntExtra("iteration", 0)
+        val hand = intent.getStringExtra("hand")
+        val isFirstTest = intent.getBooleanExtra("isFirstTest", true)
+
         Timer.startTimer()
         setContent {
             Scaffold(
                 content = {
                     Surface(color = Color.White) {
                         // Scaffold we created
-                        ScaffoldExample(iteration)
+                        ScaffoldExample(iteration, hand, isFirstTest)
                     }
                 }
             )
@@ -45,7 +48,7 @@ class BurgerTest : ComponentActivity() {
 }
 
 @Composable
-fun ScaffoldExample(iteration: Int) {
+fun ScaffoldExample(iteration: Int, hand: String?, isFirstTest: Boolean) {
 
     // create a scaffold state, set it to close by default
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
@@ -85,7 +88,7 @@ fun ScaffoldExample(iteration: Int) {
 
         // pass the drawer
         drawerContent = {
-            Drawer(iteration)
+            Drawer(iteration, hand, isFirstTest)
         }
 
     )
@@ -133,11 +136,11 @@ fun Body() {
 
 
 @Composable
-fun Drawer(iteration: Int) {
+fun Drawer(iteration: Int, hand: String?, isFirstTest: Boolean) {
     // Column Composable
     val mContext = LocalContext.current
     rememberScrollState()
-    val intent = Intent(mContext, BurgerTest::class.java)
+    val nextIteration = Intent(mContext, BurgerTest::class.java)
     var itCount = iteration
     Column(
         Modifier
@@ -156,7 +159,9 @@ fun Drawer(iteration: Int) {
                             .padding(10.dp)
                             .clickable {
                                 itCount++
-                                intent.putExtra("iteration", itCount)
+                                nextIteration.putExtra("iteration", itCount)
+                                nextIteration.putExtra("hand", hand)
+                                nextIteration.putExtra("isFirstTest", isFirstTest)
 
                                 Toast
                                     .makeText(
@@ -179,20 +184,29 @@ fun Drawer(iteration: Int) {
                                         .toString()
                                 )
                                 DataObj.completeTest()
-                                mContext.startActivity(intent)
+                                mContext.startActivity(nextIteration)
                             }
                             .background(color = Color.Red),
                         textAlign = TextAlign.Left
                     )
                 } else {
-                    mContext.startActivity(Intent(mContext, MainMenu::class.java))
-                    Toast
-                        .makeText(
-                            mContext,
-                            "Test fully completed!",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    var nextPage = Intent(mContext, SwapDirections::class.java)
+                    if (isFirstTest) {
+                        nextPage.putExtra("hand", hand)
+                        nextPage.putExtra("testNum", "test1")
+                        mContext.startActivity(nextPage)
+                    } else {
+                        Toast
+                            .makeText(
+                                mContext,
+                                "Test fully completed!",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
+
+                        nextPage = Intent(mContext, MainMenu::class.java)
+                        mContext.startActivity(nextPage)
+                    }
                 }
             } else {
                 Text(
